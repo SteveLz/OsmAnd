@@ -53,8 +53,16 @@ public class NativeCoreContext {
 				ObfsCollection obfsCollection = new ObfsCollection();
 				obfsCollection.setIndexCacheFile(app.getCacheDir().getAbsolutePath() + "/ind_core.cache");
 				obfsCollection.addDirectory(directory.getAbsolutePath(), false);
-				obfsCollection.addDirectory(app.getAppPath(IndexConstants.ROADS_INDEX_DIR).getAbsolutePath(), false);
-				obfsCollection.addDirectory(app.getAppPath(IndexConstants.LIVE_INDEX_DIR).getAbsolutePath(), false);
+				File roadsIndexDir = app.getAppPath(IndexConstants.ROADS_INDEX_DIR);
+				if (!roadsIndexDir.exists()) {
+					roadsIndexDir.mkdir();
+				}
+				obfsCollection.addDirectory(roadsIndexDir.getAbsolutePath(), false);
+				File liveIndexDir = app.getAppPath(IndexConstants.LIVE_INDEX_DIR);
+				if (!liveIndexDir.exists()) {
+					liveIndexDir.mkdir();
+				}
+				obfsCollection.addDirectory(liveIndexDir.getAbsolutePath(), false);
 
 				if (PluginsHelper.isActive(NauticalMapsPlugin.class) ||	InAppPurchaseHelper.isDepthContoursPurchased(app)) {
 					File nauticalIndexDir = app.getAppPath(IndexConstants.NAUTICAL_INDEX_DIR);
