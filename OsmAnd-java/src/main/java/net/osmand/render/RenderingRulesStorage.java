@@ -142,6 +142,12 @@ public class RenderingRulesStorage {
 		if (depends == null) {
 			return;
 		}
+		boolean addons = Algorithms.isEmpty(depends.dependsName);
+		if (addons) {
+			dictionary.addAll(depends.dictionary);
+			dictionaryMap.putAll(depends.dictionaryMap);
+			//		PROPS
+		}
 		// merge results
 		// dictionary and props are already merged
 		Iterator<Entry<String, RenderingRule>> it = depends.renderingAttributes.entrySet().iterator();
